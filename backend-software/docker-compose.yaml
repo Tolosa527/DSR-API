@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  api:
+    build: .
+    command: "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+        EXCHANGE_API_KEY: bf941ed6efe7022e6da3acbb7b002741
+        REDIS_HOST: redis
+        REDIS_PORT: 6379
+        REDIS_EXPIRATION_TIME: 120
+    networks:
+      - dsrs-network
+  redis:
+    image: redis
+    networks:
+      - dsrs-network
+networks:
+  dsrs-network:
+    driver: bridge
